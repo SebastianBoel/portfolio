@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <script>
+    (function () {
+        var l = localStorage.getItem('lang') || 'da';
+        document.documentElement.classList.add('lang-' + l);
+        document.documentElement.lang = l;
+    })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Boel Nielsen — Datamatiker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg':      '#2a3838',
+                        'bg-dark': '#1f2d2d',
+                        'bg-card': '#243333',
+                        'accent':  '#52c090',
+                        'accent2': '#3da878',
+                        'txt':     '#dce8e8',
+                        'muted':   '#8da8a8',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        html.lang-da [data-lang="en"] { display: none; }
+        html.lang-en [data-lang="da"] { display: none; }
+        .lang-btn { color: #8da8a8; }
+        html.lang-da .lang-btn[data-set-lang="da"],
+        html.lang-en .lang-btn[data-set-lang="en"] { background: #52c090; color: #1f2d2d; }
+        .section-line { width: 3rem; height: 3px; background: #52c090; margin-bottom: 2.5rem; }
+        .skill-tag {
+            background: #1f2d2d;
+            color: #8da8a8;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid #2d4040;
+        }
+        .project-card {
+            background: #243333;
+            border: 1px solid #2d4040;
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .project-card:hover {
+            border-color: #52c090;
+            transform: translateY(-3px);
+        }
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background: #52c090;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="bg-[#2a3838] text-[#dce8e8]">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#1f2d2d]/95 backdrop-blur-sm border-b border-[#52c090]/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="font-bold text-[#52c090] tracking-wide">Sebastian Boel Nielsen</span>
+            <div class="hidden md:flex items-center gap-8 text-sm text-[#8da8a8]">
+                <a href="#om"           class="hover:text-[#52c090] transition-colors"><span data-lang="da">Om</span><span data-lang="en">About</span></a>
+                <a href="#kompetencer"  class="hover:text-[#52c090] transition-colors"><span data-lang="da">Kompetencer</span><span data-lang="en">Skills</span></a>
+                <a href="#projekter"    class="hover:text-[#52c090] transition-colors"><span data-lang="da">Projekter</span><span data-lang="en">Projects</span></a>
+                <a href="#erfaring"     class="hover:text-[#52c090] transition-colors"><span data-lang="da">Erfaring</span><span data-lang="en">Experience</span></a>
+                <a href="#kontakt"      class="hover:text-[#52c090] transition-colors"><span data-lang="da">Kontakt</span><span data-lang="en">Contact</span></a>
+                <a href="cv_Sebastian_Nielsen.pdf" target="_blank"
+                   class="border border-[#52c090] text-[#52c090] px-4 py-1.5 rounded text-sm hover:bg-[#52c090] hover:text-[#1f2d2d] transition-all font-medium">
+                    CV
+                </a>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-1 text-xs font-semibold border border-[#2d4040] rounded-full p-0.5">
+                    <button data-set-lang="da" class="lang-btn px-2.5 py-1 rounded-full transition-colors">DA</button>
+                    <button data-set-lang="en" class="lang-btn px-2.5 py-1 rounded-full transition-colors">EN</button>
+                </div>
+                <!-- Mobile menu icon (placeholder) -->
+                <button class="md:hidden text-[#8da8a8]">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center max-w-6xl mx-auto px-6 pt-20">
+        <div class="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-12 py-16">
+
+            <!-- Text -->
+            <div class="flex-1">
+                <p class="text-[#52c090] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
+                    <span data-lang="da">Hej, mit navn er</span><span data-lang="en">Hi, my name is</span>
+                </p>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-[#dce8e8]">
+                    Sebastian<br>
+                    <span class="text-[#52c090]">Boel Nielsen</span>
+                </h1>
+                <p class="text-[#8da8a8] text-lg mt-5 mb-8 max-w-lg leading-relaxed">
+                    <span data-lang="da">
+                        Jeg er datamatikerstuderende med fokus på fullstack-udvikling i Java, JavaScript og Python.
+                        Har desuden erfaring med databaser, AI-agenter og automatisering.
+                        Søger 10-ugers praktik fra september 2026.
+                    </span>
+                    <span data-lang="en">
+                        I'm a computer science student focused on fullstack development in Java, JavaScript and Python.
+                        I also have experience with databases, AI agents and automation.
+                        Looking for a 10-week internship starting September 2026.
+                    </span>
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projekter"
+                       class="bg-[#52c090] text-[#1f2d2d] font-semibold px-6 py-3 rounded hover:bg-[#3da878] transition-colors">
+                        <span data-lang="da">Se projekter</span><span data-lang="en">View projects</span>
+                    </a>
+                    <a href="#kontakt"
+                       class="border border-[#52c090] text-[#52c090] font-semibold px-6 py-3 rounded hover:bg-[#52c090]/10 transition-colors">
+                        <span data-lang="da">Kontakt mig</span><span data-lang="en">Contact me</span>
+                    </a>
+                </div>
+                <div class="flex gap-5 mt-8 text-sm text-[#8da8a8]">
+                    <a href="https://github.com/SebastianBoel" target="_blank" class="hover:text-[#52c090] transition-colors">GitHub</a>
+                    <span>·</span>
+                    <a href="https://www.linkedin.com/in/sebastian-boel-nielsen-4b0a643a/" target="_blank" class="hover:text-[#52c090] transition-colors">LinkedIn</a>
+                    <span>·</span>
+                    <a href="mailto:sebastianboel@gmail.com" class="hover:text-[#52c090] transition-colors">sebastianboel@gmail.com</a>
+                    <span>·</span>
+                    <span><span data-lang="da">Brønshøj</span><span data-lang="en">Brønshøj, Denmark</span> · (+45) 20 91 25 21</span>
+                </div>
+            </div>
+
+            <!-- Photo -->
+            <div class="flex-shrink-0">
+                <div class="w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden
+                            ring-4 ring-[#52c090] ring-offset-8 ring-offset-[#2a3838]">
+                    <img src="img/cv.png" alt="Sebastian Boel Nielsen" class="w-full h-full object-cover object-top">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Om mig -->
+    <section id="om" class="py-24 max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-2"><span data-lang="da">Om mig</span><span data-lang="en">About me</span></h2>
+        <div class="section-line"></div>
+        <div class="grid md:grid-cols-2 gap-10 text-[#8da8a8] text-base leading-relaxed">
+            <p>
+                <span data-lang="da">
+                    Jeg er en målrettet datamatikerstuderende på Erhvervsakademi København, aktuelt på 4. semester
+                    med et karaktergennemsnit på 9,6. Jeg arbejder med fullstack-udvikling og har erfaring med
+                    alt fra databasedesign og Docker til AI-agenter og automatisering med n8n.
+                </span>
+                <span data-lang="en">
+                    I'm a driven computer science student at Erhvervsakademi København (Copenhagen Business Academy),
+                    currently in my 4th semester with a 9.6 GPA. I work with fullstack development and have experience
+                    ranging from database design and Docker to AI agents and automation with n8n.
+                </span>
+            </p>
+            <p>
+                <span data-lang="da">
+                    Udover det tekniske bringer jeg solid erhvervserfaring fra salg og ledelse, hvilket giver mig
+                    en stærk forståelse for samarbejde, kommunikation og værdiskabende løsninger. Jeg trives i
+                    teams og er vant til at arbejde struktureret og målrettet.
+                </span>
+                <span data-lang="en">
+                    Beyond the technical side, I bring solid professional experience from sales and management,
+                    giving me a strong understanding of collaboration, communication and value-driven solutions.
+                    I thrive in teams and am used to working in a structured, goal-oriented way.
+                </span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Kompetencer -->
+    <section id="kompetencer" class="py-24 bg-[#243333]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-2"><span data-lang="da">Kompetencer</span><span data-lang="en">Skills</span></h2>
+            <div class="section-line"></div>
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">Programmering</span><span data-lang="en">Programming</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">Backend & Databaser</span><span data-lang="en">Backend & Databases</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">OOP</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Graph DB</span>
+                        <span class="skill-tag"><span data-lang="da">Vektor DB</span><span data-lang="en">Vector DB</span></span>
+                        <span class="skill-tag">UML</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">DevOps & Værktøjer</span><span data-lang="en">DevOps & Tools</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Linux CLI</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">Automatisering & AI</span><span data-lang="en">Automation & AI</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">n8n</span>
+                        <span class="skill-tag"><span data-lang="da">AI-agenter</span><span data-lang="en">AI agents</span></span>
+                        <span class="skill-tag"><span data-lang="da">Workflow-automatisering</span><span data-lang="en">Workflow automation</span></span>
+                    </div>
+                </div>
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">Metoder</span><span data-lang="en">Methods</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Agile</span>
+                        <span class="skill-tag">Scrum</span>
+                        <span class="skill-tag"><span data-lang="da">Kravanalyse</span><span data-lang="en">Requirements analysis</span></span>
+                        <span class="skill-tag"><span data-lang="da">Systemdesign</span><span data-lang="en">System design</span></span>
+                    </div>
+                </div>
+
+                <div class="bg-[#2a3838] p-6 rounded-lg border border-[#2d4040]">
+                    <h3 class="text-[#52c090] font-semibold mb-4"><span data-lang="da">Sprog</span><span data-lang="en">Languages</span></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag"><span data-lang="da">Dansk — modersmål</span><span data-lang="en">Danish — native</span></span>
+                        <span class="skill-tag"><span data-lang="da">Engelsk — flydende</span><span data-lang="en">English — fluent</span></span>
+                        <span class="skill-tag"><span data-lang="da">Svensk/norsk — forståelse</span><span data-lang="en">Swedish/Norwegian — comprehension</span></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projekter -->
+    <section id="projekter" class="py-24 max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-2"><span data-lang="da">Projekter</span><span data-lang="en">Projects</span></h2>
+        <div class="section-line"></div>
+        <div class="grid md:grid-cols-3 gap-6">
+
+            <!-- Spinchy KPI Dashboard -->
+            <a href="spinchy.html" class="project-card block">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-[#52c090] text-2xl">📊</span>
+                    <span class="text-[#8da8a8] hover:text-[#52c090] text-sm transition-colors"><span data-lang="da">Se projekt →</span><span data-lang="en">View project →</span></span>
+                </div>
+                <h3 class="font-semibold text-lg mb-2">Spinchy KPI Dashboard</h3>
+                <p class="text-[#8da8a8] text-sm leading-relaxed mb-4">
+                    <span data-lang="da">Eksamensopgave (3. semester) bygget til en reel virksomhed. Fullstack KPI-dashboard der aggregerer data fra tre systemer — Rackbeat lager-API, C1st POS og webshop — og præsenterer omsætning, dækningsbidrag og topsælgere med år-til-år sammenligning på tværs af kanaler.</span>
+                    <span data-lang="en">Exam project (3rd semester) built for a real company. Fullstack KPI dashboard aggregating data from three systems — the Rackbeat inventory API, C1st POS and webshop — presenting revenue, contribution margin and top sellers with year-over-year comparison across channels.</span>
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">REST API</span>
+                    <span class="skill-tag">JWT</span>
+                </div>
+            </a>
+
+            <!-- StudyMind AI -->
+            <a href="studymind.html" class="project-card block">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-[#52c090] text-2xl">🤖</span>
+                    <span class="text-[#8da8a8] hover:text-[#52c090] text-sm transition-colors"><span data-lang="da">Se projekt →</span><span data-lang="en">View project →</span></span>
+                </div>
+                <h3 class="font-semibold text-lg mb-2">StudyMind AI</h3>
+                <p class="text-[#8da8a8] text-sm leading-relaxed mb-4">
+                    <span data-lang="da">Graph RAG-baseret studieassistent til Discord. Upload en PDF-slide og systemet genererer automatisk noter og quizzer. Spørgsmål i #ask besvares ud fra kursusmaterialet via vector- og graph-søgning i Neo4j — ikke fra modellens hukommelse.</span>
+                    <span data-lang="en">Graph RAG-based study assistant for Discord. Upload a PDF slide deck and the system automatically generates notes and quizzes. Questions in #ask are answered from the course material via vector and graph search in Neo4j — not from the model's memory.</span>
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">n8n</span>
+                    <span class="skill-tag">Neo4j</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Graph RAG</span>
+                    <span class="skill-tag">MCP</span>
+                    <span class="skill-tag">Claude AI</span>
+                    <span class="skill-tag">Discord API</span>
+                </div>
+            </a>
+
+            <!-- Projekt 3 skjult -->
+
+        </div>
+    </section>
+
+    <!-- Uddannelse & Erfaring -->
+    <section id="erfaring" class="py-24 bg-[#243333]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-2"><span data-lang="da">Uddannelse & Erfaring</span><span data-lang="en">Education & Experience</span></h2>
+            <div class="section-line"></div>
+            <div class="grid md:grid-cols-2 gap-12">
+
+                <!-- Uddannelse -->
+                <div>
+                    <h3 class="text-[#52c090] font-semibold text-sm tracking-widest uppercase mb-6"><span data-lang="da">Uddannelse</span><span data-lang="en">Education</span></h3>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="timeline-dot"></div>
+                            <div class="w-px flex-1 bg-[#2d4040] mt-2"></div>
+                        </div>
+                        <div class="pb-8">
+                            <p class="text-xs text-[#52c090] font-medium mb-1"><span data-lang="da">August 2024 – nu</span><span data-lang="en">August 2024 – present</span></p>
+                            <h4 class="font-semibold text-[#dce8e8]"><span data-lang="da">Datamatiker</span><span data-lang="en">Computer Science (Datamatiker)</span></h4>
+                            <p class="text-[#8da8a8] text-sm">Erhvervsakademi København</p>
+                            <ul class="text-[#8da8a8] text-sm mt-3 space-y-1 list-disc list-inside">
+                                <li><span data-lang="da">4. semester — karaktergennemsnit 9,6</span><span data-lang="en">4th semester — 9.6 GPA</span></li>
+                                <li><span data-lang="da">Fullstack-udvikling med Java og JavaScript</span><span data-lang="en">Fullstack development with Java and JavaScript</span></li>
+                                <li><span data-lang="da">Valgfag: Python, AI-agenter, n8n</span><span data-lang="en">Electives: Python, AI agents, n8n</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Erfaring -->
+                <div>
+                    <h3 class="text-[#52c090] font-semibold text-sm tracking-widest uppercase mb-6"><span data-lang="da">Erhvervserfaring</span><span data-lang="en">Professional Experience</span></h3>
+
+                    <div class="flex gap-4 mb-6">
+                        <div class="flex flex-col items-center">
+                            <div class="timeline-dot"></div>
+                            <div class="w-px flex-1 bg-[#2d4040] mt-2"></div>
+                        </div>
+                        <div class="pb-6">
+                            <p class="text-xs text-[#52c090] font-medium mb-1"><span data-lang="da">April 2023 – nu</span><span data-lang="en">April 2023 – present</span></p>
+                            <h4 class="font-semibold text-[#dce8e8]"><span data-lang="da">Sælger</span><span data-lang="en">Sales Associate</span></h4>
+                            <p class="text-[#8da8a8] text-sm">Skousen Brønshøj</p>
+                            <p class="text-[#8da8a8] text-sm mt-2">
+                                <span data-lang="da">Rådgiver kunder om tekniske produkter, håndterer reklamationer og bidrager til høj kundetilfredshed.</span>
+                                <span data-lang="en">Advise customers on technical products, handle complaints/returns and contribute to high customer satisfaction.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#52c090] font-medium mb-1"><span data-lang="da">September 2018 – Februar 2023</span><span data-lang="en">September 2018 – February 2023</span></p>
+                            <h4 class="font-semibold text-[#dce8e8]"><span data-lang="da">Salgsleder & Sælger</span><span data-lang="en">Sales Manager & Sales Associate</span></h4>
+                            <p class="text-[#8da8a8] text-sm">Power A/S</p>
+                            <p class="text-[#8da8a8] text-sm mt-2">
+                                <span data-lang="da">Personaleansvar for 6–8 medarbejdere, kampagner, lagerflow og oplæring i salg og teknisk produktforståelse.</span>
+                                <span data-lang="en">Staff responsibility for 6–8 employees, campaigns, stock flow and training in sales and technical product knowledge.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="py-24 max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-2"><span data-lang="da">Kontakt</span><span data-lang="en">Contact</span></h2>
+        <div class="section-line mx-auto"></div>
+        <p class="text-[#8da8a8] text-lg max-w-xl mx-auto mb-10">
+            <span data-lang="da">Er du interesseret i at tilbyde mig et praktikforløb, eller vil du blot sige hej? Skriv endelig.</span>
+            <span data-lang="en">Interested in offering me an internship, or just want to say hi? Feel free to reach out.</span>
+        </p>
+        <a href="mailto:sebastianboel@gmail.com"
+           class="inline-block bg-[#52c090] text-[#1f2d2d] font-semibold px-8 py-4 rounded text-lg hover:bg-[#3da878] transition-colors">
+            sebastianboel@gmail.com
+        </a>
+        <div class="flex justify-center gap-8 mt-12 text-[#8da8a8] text-sm">
+            <a href="https://github.com/SebastianBoel" target="_blank" class="hover:text-[#52c090] transition-colors">GitHub</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/sebastian-boel-nielsen-4b0a643a/" target="_blank" class="hover:text-[#52c090] transition-colors">LinkedIn</a>
+            <span>·</span>
+            <span>(+45) 20 91 25 21</span>
+            <span>·</span>
+            <span><span data-lang="da">Brønshøj, København</span><span data-lang="en">Brønshøj, Copenhagen</span></span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1f2d2d] border-t border-[#2d4040] py-6 text-center text-[#8da8a8] text-sm">
+        <p>© 2026 Sebastian Boel Nielsen · <a href="https://sebastianboel.dk" class="text-[#52c090]">sebastianboel.dk</a></p>
+    </footer>
+
+    <script src="lang.js" defer></script>
+</body>
+</html>

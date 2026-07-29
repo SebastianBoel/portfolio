@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <script>
+    (function () {
+        var l = localStorage.getItem('lang') || 'da';
+        document.documentElement.classList.add('lang-' + l);
+        document.documentElement.lang = l;
+    })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMind AI — Sebastian Boel Nielsen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html.lang-da [data-lang="en"] { display: none; }
+        html.lang-en [data-lang="da"] { display: none; }
+        .lang-btn { color: #8da8a8; }
+        html.lang-da .lang-btn[data-set-lang="da"],
+        html.lang-en .lang-btn[data-set-lang="en"] { background: #52c090; color: #1f2d2d; }
+        .skill-tag {
+            background: #1f2d2d; color: #8da8a8; font-size: 0.8rem;
+            padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid #2d4040;
+        }
+        /* Discord mock */
+        .discord-sidebar { background: #2b2d31; width: 220px; flex-shrink: 0; }
+        .discord-main { background: #313338; flex: 1; }
+        .discord-channel { padding: 4px 8px; border-radius: 4px; font-size: 13px; color: #949ba4; cursor: default; display: flex; align-items: center; gap: 6px; }
+        .discord-channel.active { background: #404249; color: #fff; }
+        .discord-channel:hover:not(.active) { background: #35373c; color: #dcddde; }
+        .discord-msg { display: flex; gap: 12px; padding: 6px 16px; }
+        .discord-msg:hover { background: #2e3035; }
+        .discord-avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+        .discord-name { font-size: 14px; font-weight: 600; }
+        .discord-time { font-size: 11px; color: #949ba4; margin-left: 6px; }
+        .discord-text { font-size: 14px; color: #dcddde; line-height: 1.5; margin-top: 2px; }
+        .discord-text code { background: #1e1f22; padding: 1px 5px; border-radius: 3px; font-size: 12px; font-family: monospace; color: #7289da; }
+        .discord-embed { background: #2b2d31; border-left: 4px solid #5865f2; border-radius: 0 4px 4px 0; padding: 12px 16px; margin-top: 6px; }
+        .discord-embed-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .discord-embed-body { font-size: 13px; color: #b5bac1; line-height: 1.6; }
+        .bot-tag { background: #5865f2; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px; vertical-align: middle; margin-left: 4px; }
+    </style>
+</head>
+<body class="bg-[#2a3838] text-[#dce8e8]">
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-[#1f2d2d]/95 backdrop-blur-sm border-b border-[#52c090]/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
+            <a href="index.html" class="text-[#52c090] hover:text-[#3da878] transition-colors text-sm font-medium">
+                <span data-lang="da">← Tilbage</span><span data-lang="en">← Back</span>
+            </a>
+            <span class="text-[#8da8a8]">/ StudyMind AI</span>
+            <div class="ml-auto flex items-center gap-1 text-xs font-semibold border border-[#2d4040] rounded-full p-0.5">
+                <button data-set-lang="da" class="lang-btn px-2.5 py-1 rounded-full transition-colors">DA</button>
+                <button data-set-lang="en" class="lang-btn px-2.5 py-1 rounded-full transition-colors">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 pt-28 pb-24">
+
+        <!-- Header -->
+        <div class="mb-12">
+            <p class="text-[#52c090] text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+                <span data-lang="da">Valgfag · AI-agenter og automatisering</span><span data-lang="en">Elective · AI agents and automation</span>
+            </p>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">StudyMind AI</h1>
+            <p class="text-[#8da8a8] text-lg max-w-2xl leading-relaxed">
+                <span data-lang="da">Graph RAG-baseret studieassistent bygget oven på Discord. Upload en PDF, og systemet genererer automatisk noter og quizzer. Spørgsmål i #ask besvares ud fra det uploadede kursusmateriale — ikke fra modellens hukommelse.</span>
+                <span data-lang="en">Graph RAG-based study assistant built on top of Discord. Upload a PDF and the system automatically generates notes and quizzes. Questions in #ask are answered from the uploaded course material — not from the model's memory.</span>
+            </p>
+            <div class="flex flex-wrap gap-2 mt-6">
+                <span class="skill-tag">n8n</span>
+                <span class="skill-tag">Neo4j</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Graph RAG</span>
+                <span class="skill-tag">Vector RAG</span>
+                <span class="skill-tag">MCP</span>
+                <span class="skill-tag">Claude AI</span>
+                <span class="skill-tag">Discord API</span>
+            </div>
+        </div>
+
+        <!-- Discord mockup (screenshot — kept in Danish, as it reflects the real bot conversation) -->
+        <div class="rounded-xl overflow-hidden border border-[#2d4040] mb-16 shadow-2xl">
+            <!-- Browser chrome -->
+            <div class="bg-[#1f2d2d] px-4 py-3 flex items-center gap-2 border-b border-[#2d4040]">
+                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                <div class="ml-4 bg-[#243333] rounded px-4 py-1 text-xs text-[#8da8a8] flex-1 max-w-xs">Discord — StudyMind AI</div>
+            </div>
+
+            <!-- Discord layout -->
+            <div class="flex" style="min-height: 480px;">
+
+                <!-- Sidebar -->
+                <div class="discord-sidebar p-3 flex flex-col gap-1">
+                    <div class="text-xs font-semibold text-[#949ba4] uppercase tracking-wider px-2 py-2">Studymind AI</div>
+                    <div class="discord-channel"><span class="text-[#949ba4]">#</span> upload-material</div>
+                    <div class="discord-channel active"><span>#</span> notes</div>
+                    <div class="discord-channel"><span class="text-[#949ba4]">#</span> quiz</div>
+                    <div class="discord-channel"><span class="text-[#949ba4]">#</span> ask</div>
+                    <div class="mt-4 pt-4 border-t border-[#404249]">
+                        <div class="text-xs font-semibold text-[#949ba4] uppercase tracking-wider px-2 mb-2">Online — 2</div>
+                        <div class="flex items-center gap-2 px-2 py-1">
+                            <div class="w-7 h-7 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold text-white">S</div>
+                            <span class="text-sm text-[#dcddde]">sebastianboel</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-2 py-1">
+                            <div class="w-7 h-7 rounded-full bg-[#5865f2] flex items-center justify-center text-xs font-bold text-white">M</div>
+                            <span class="text-sm text-[#dcddde]">StudyMind <span class="bot-tag">BOT</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main chat — #notes channel -->
+                <div class="discord-main flex flex-col">
+                    <div class="px-4 py-3 border-b border-[#1e1f22] flex items-center gap-2">
+                        <span class="text-[#949ba4] font-bold">#</span>
+                        <span class="font-semibold text-white text-sm">notes</span>
+                        <span class="text-[#949ba4] text-xs ml-2">— Automatisk genererede noter fra uploadet materiale</span>
+                    </div>
+
+                    <div class="flex-1 py-4 overflow-y-auto space-y-1">
+
+                        <!-- User uploads PDF -->
+                        <div class="discord-msg">
+                            <div class="discord-avatar bg-indigo-500 text-white">S</div>
+                            <div class="flex-1">
+                                <div>
+                                    <span class="discord-name text-white">sebastianboel</span>
+                                    <span class="discord-time">i dag kl. 14:22</span>
+                                </div>
+                                <div class="discord-text">📎 <span class="text-[#5865f2]">AI-Agenter-F2026-8-Graph-RAG.pdf</span> uploadet til <span class="text-[#5865f2]">#upload-material</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Bot: processing -->
+                        <div class="discord-msg">
+                            <div class="discord-avatar bg-[#5865f2] text-white text-xs">SM</div>
+                            <div class="flex-1">
+                                <div>
+                                    <span class="discord-name text-[#5865f2]">StudyMind</span>
+                                    <span class="bot-tag">BOT</span>
+                                    <span class="discord-time">i dag kl. 14:22</span>
+                                </div>
+                                <div class="discord-text">✅ PDF modtaget! Behandler <strong>107 chunks</strong> og ekstraherer nøglekoncepter... Noter og quiz er klar om et øjeblik.</div>
+                            </div>
+                        </div>
+
+                        <!-- Bot: notes posted -->
+                        <div class="discord-msg">
+                            <div class="discord-avatar bg-[#5865f2] text-white text-xs">SM</div>
+                            <div class="flex-1">
+                                <div>
+                                    <span class="discord-name text-[#5865f2]">StudyMind</span>
+                                    <span class="bot-tag">BOT</span>
+                                    <span class="discord-time">i dag kl. 14:24</span>
+                                </div>
+                                <div class="discord-text">📝 **Noter: Graph RAG**</div>
+                                <div class="discord-embed">
+                                    <div class="discord-embed-title">📚 Nøglebegreber</div>
+                                    <div class="discord-embed-body">
+                                        <p><strong>Graph RAG</strong> kombinerer videngraf-traversering med vektorsøgning for at give mere kontekstuelt præcise svar end traditionel RAG.</p>
+                                        <br>
+                                        <p>• <code>Vector RAG</code> — finder semantisk lignende tekststykker via embeddings</p>
+                                        <p>• <code>Graph RAG</code> — traverserer relationer mellem koncepter i en videngraf</p>
+                                        <p>• <code>Hybrid RAG</code> — kombinerer begge for bedste dækning</p>
+                                        <br>
+                                        <p><strong>Neo4j</strong> bruges til både vector store (embeddings på chunk-noder) og graftraversering (konceptrelationer).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="px-4 py-2 text-center text-xs text-[#949ba4]">— Skift til #ask —</div>
+
+                        <!-- User asks question -->
+                        <div class="discord-msg">
+                            <div class="discord-avatar bg-indigo-500 text-white">S</div>
+                            <div class="flex-1">
+                                <div>
+                                    <span class="discord-name text-white">sebastianboel</span>
+                                    <span class="discord-time">i dag kl. 14:31</span>
+                                </div>
+                                <div class="discord-text">Hvad er forskellen på vector RAG og graph RAG, og hvornår er graph RAG bedst?</div>
+                            </div>
+                        </div>
+
+                        <!-- Bot answer -->
+                        <div class="discord-msg">
+                            <div class="discord-avatar bg-[#5865f2] text-white text-xs">SM</div>
+                            <div class="flex-1">
+                                <div>
+                                    <span class="discord-name text-[#5865f2]">StudyMind</span>
+                                    <span class="bot-tag">BOT</span>
+                                    <span class="discord-time">i dag kl. 14:31</span>
+                                </div>
+                                <div class="discord-embed">
+                                    <div class="discord-embed-title">🔍 Svar fra kursusmaterialet</div>
+                                    <div class="discord-embed-body">
+                                        <p><strong>Vector RAG</strong> finder tekststykker der er semantisk lig med spørgsmålet via cosine similarity på embeddings. Det er præcist til faktuelle spørgsmål.</p>
+                                        <br>
+                                        <p><strong>Graph RAG</strong> traverserer relationer i videngrafen — fx hvilke koncepter der optræder sammen. Det giver svar der viser <em>sammenhænge</em>, ikke blot fakta.</p>
+                                        <br>
+                                        <p>📌 <em>Graph RAG er bedst</em> ved spørgsmål som "hvad hænger sammen med MCP?" eller "hvilke begreber går igen på tværs af emner?"</p>
+                                        <br>
+                                        <p class="text-xs text-[#6b7280]">Kilde: AI-Agenter-F2026-8-Graph-RAG.pdf · chunk 14, 22, 31</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features + arkitektur -->
+        <div class="grid md:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-2xl font-bold mb-2"><span data-lang="da">Hvad gør det</span><span data-lang="en">What it does</span></h2>
+                <div class="w-10 h-0.5 bg-[#52c090] mb-6"></div>
+                <ul class="text-[#8da8a8] space-y-3 text-sm leading-relaxed">
+                    <li class="flex gap-3"><span class="text-[#52c090] mt-0.5">→</span> <span data-lang="da">Upload en PDF til #upload-material — n8n henter den, splitter teksten i chunks og gemmer embeddings og koncepter i Neo4j</span><span data-lang="en">Upload a PDF to #upload-material — n8n fetches it, splits the text into chunks and stores embeddings and concepts in Neo4j</span></li>
+                    <li class="flex gap-3"><span class="text-[#52c090] mt-0.5">→</span> <span data-lang="da">Systemet genererer automatisk noter og quizzer og poster dem i #notes og #quiz</span><span data-lang="en">The system automatically generates notes and quizzes and posts them in #notes and #quiz</span></li>
+                    <li class="flex gap-3"><span class="text-[#52c090] mt-0.5">→</span> <span data-lang="da">Spørgsmål i #ask besvares via vector RAG + graph RAG — aldrig fra modellens hukommelse alene</span><span data-lang="en">Questions in #ask are answered via vector RAG + graph RAG — never from the model's memory alone</span></li>
+                    <li class="flex gap-3"><span class="text-[#52c090] mt-0.5">→</span> <span data-lang="da">MCP-server eksponerer 6 tools: search, list, chunks, graph_search, generate_notes, generate_quiz</span><span data-lang="en">MCP server exposes 6 tools: search, list, chunks, graph_search, generate_notes, generate_quiz</span></li>
+                    <li class="flex gap-3"><span class="text-[#52c090] mt-0.5">→</span> <span data-lang="da">Testet med 9 PDF'er, 107 chunks og 200+ konceptnoder</span><span data-lang="en">Tested with 9 PDFs, 107 chunks and 200+ concept nodes</span></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold mb-2"><span data-lang="da">Arkitektur</span><span data-lang="en">Architecture</span></h2>
+                <div class="w-10 h-0.5 bg-[#52c090] mb-6"></div>
+                <div class="space-y-3 text-sm text-[#8da8a8]">
+                    <div class="bg-[#243333] rounded-lg p-4 border border-[#2d4040]">
+                        <p class="text-[#52c090] font-semibold mb-1"><span data-lang="da">Brugerinterface</span><span data-lang="en">User interface</span></p>
+                        <p><span data-lang="da">Discord med fire kanaler — #upload-material, #notes, #quiz, #ask. Hermes Agent med SOUL.md-fil styrer adfærd og tone</span><span data-lang="en">Discord with four channels — #upload-material, #notes, #quiz, #ask. A Hermes Agent with a SOUL.md file governs behavior and tone</span></p>
+                    </div>
+                    <div class="bg-[#243333] rounded-lg p-4 border border-[#2d4040]">
+                        <p class="text-[#52c090] font-semibold mb-1"><span data-lang="da">Automatisering</span><span data-lang="en">Automation</span></p>
+                        <p><span data-lang="da">n8n-workflows håndterer upload-pipeline, chunk-processering, note- og quizgenerering via webhooks</span><span data-lang="en">n8n workflows handle the upload pipeline, chunk processing, and note/quiz generation via webhooks</span></p>
+                    </div>
+                    <div class="bg-[#243333] rounded-lg p-4 border border-[#2d4040]">
+                        <p class="text-[#52c090] font-semibold mb-1"><span data-lang="da">Data og retrieval</span><span data-lang="en">Data & retrieval</span></p>
+                        <p><span data-lang="da">Neo4j som både vector store (embeddings via text-embedding-3-small) og grafdatabase (konceptrelationer). Claude Haiku til chunking, Claude Opus til noter og quiz</span><span data-lang="en">Neo4j as both vector store (embeddings via text-embedding-3-small) and graph database (concept relationships). Claude Haiku for chunking, Claude Opus for notes and quizzes</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="lang.js" defer></script>
+</body>
+</html>
