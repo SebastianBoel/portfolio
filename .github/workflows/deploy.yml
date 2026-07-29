@@ -16,7 +16,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "159.195.218.23 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIalznf21DjEn0Kmq2eCAM5Y2qavzZfYSh47InKlcdh/" > ~/.ssh/known_hosts
 
       - name: Deploy via rsync
         run: |
