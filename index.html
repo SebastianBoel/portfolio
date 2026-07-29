@@ -34,6 +34,7 @@
     <style>
         * { font-family: 'Inter', sans-serif; }
         html { scroll-behavior: smooth; }
+        html, body { max-width: 100%; overflow-x: hidden; }
         html.lang-da [data-lang="en"] { display: none; }
         html.lang-en [data-lang="da"] { display: none; }
         .lang-btn { color: #8da8a8; }
@@ -143,7 +144,7 @@
                         <span data-lang="da">Kontakt mig</span><span data-lang="en">Contact me</span>
                     </a>
                 </div>
-                <div class="flex gap-5 mt-8 text-sm text-[#8da8a8]">
+                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-8 text-sm text-[#8da8a8]">
                     <a href="https://github.com/SebastianBoel" target="_blank" class="hover:text-[#52c090] transition-colors">GitHub</a>
                     <span>·</span>
                     <a href="https://www.linkedin.com/in/sebastian-boel-nielsen-4b0a643a/" target="_blank" class="hover:text-[#52c090] transition-colors">LinkedIn</a>
@@ -487,7 +488,7 @@
            class="inline-block bg-[#52c090] text-[#1f2d2d] font-semibold px-8 py-4 rounded text-lg hover:bg-[#3da878] transition-colors">
             sebastianboel@gmail.com
         </a>
-        <div class="flex justify-center gap-8 mt-12 text-[#8da8a8] text-sm">
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-12 text-[#8da8a8] text-sm">
             <a href="https://github.com/SebastianBoel" target="_blank" class="hover:text-[#52c090] transition-colors">GitHub</a>
             <span>·</span>
             <a href="https://www.linkedin.com/in/sebastian-boel-nielsen-4b0a643a/" target="_blank" class="hover:text-[#52c090] transition-colors">LinkedIn</a>
